@@ -1,14 +1,58 @@
 <template>
   <div class="home_page">
+    <!-- 可折叠菜单栏 -->
+    <el-radio-group v-show="ifShowFoldableMenu" v-model="isCollapse" style="margin-bottom: 20px">
+      <el-radio-button :label="false">expand</el-radio-button>
+      <el-radio-button :label="true">collapse</el-radio-button>
+    </el-radio-group>
+    <el-menu
+      default-active="2"
+      class="el-menu-vertical-demo"
+      :collapse="isCollapse"
+      @open="handleOpen"
+      @close="handleClose"
+      v-show="ifShowFoldableMenu"
+    >
+      <el-sub-menu index="1">
+        <template #title>
+          <el-icon><location /></el-icon>
+          <span>Navigator One</span>
+        </template>
+        <el-menu-item-group>
+          <template #title><span>Tip One</span></template>
+          <el-menu-item index="1-1" @click="toRegister()">toRegister</el-menu-item>
+          <el-menu-item index="1-2">item two</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="Group Two">
+          <el-menu-item index="1-3">item three</el-menu-item>
+        </el-menu-item-group>
+      <el-sub-menu index="1-4">
+        <template #title><span>item four</span></template>
+        <el-menu-item index="1-4-1">item one</el-menu-item>
+      </el-sub-menu>
+      </el-sub-menu>
+      <el-menu-item index="2">
+        <el-icon><icon-menu /></el-icon>
+          <template #title>Navigator Two</template>
+        </el-menu-item>
+      <el-menu-item index="3" disabled>
+        <el-icon><document /></el-icon>
+        <template #title>Navigator Three</template>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <el-icon><setting /></el-icon>
+        <template #title>Navigator Four</template>
+      </el-menu-item>
+    </el-menu>
     <!-- 侧边菜单栏 -->
     <el-row class="tac" v-show="ifShowMenu">
       <el-col :span="12">
-        <h5>Default colors</h5>
+        <!-- <h5>Default colors</h5> -->
         <el-menu
           default-active="2"
           class="el-menu-vertical-demo"
           @open="handleOpen"
-          @close="handleClose"
+          @close="handleClose"       
         >
           <el-sub-menu index="1">
             <template #title>
@@ -16,7 +60,7 @@
               <span>TipOne</span>
             </template>
             <el-menu-item-group title="Group One">
-              <el-menu-item index="1-1" @click="onRegister()">register</el-menu-item>
+              <el-menu-item index="1-1" @click="toRegister()">register</el-menu-item>
               <el-menu-item index="1-2">item one</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="Group Two">
@@ -66,7 +110,7 @@
             </el-col>
             <el-col class="line" :span="4">  </el-col>
             <el-col :span="10" class="valid_box">
-              <valid-code :width="100"></valid-code>
+              <valid-code :width="'100'"></valid-code>
             </el-col>
           </el-form-item>
           <el-form-item label="*密码">
@@ -82,7 +126,7 @@
 <script>
 
 import  ValidCode  from "@/components/VerificationCode";
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import {
   Location,
   Document,
@@ -97,8 +141,24 @@ export default defineComponent({
     Setting,
     IconMenu,
   },
+  setup() {
+    const isCollapse = ref(true)
+    const handleOpen = (key, keyPath) => {
+      console.log(key, keyPath)
+    }
+    const handleClose = (key, keyPath) => {
+      console.log(key, keyPath)
+    }
+    return {
+      isCollapse,
+      handleOpen,
+      handleClose,
+    }
+  },
   data(){
     return {
+      // isCollapse: true,
+      ifShowFoldableMenu: false, //是否显示可折叠菜单栏
       ifShowMenu: true, //是否显示菜单栏
       ifShowRegister: false, //是否显示注册框
       input: "",
@@ -113,15 +173,23 @@ export default defineComponent({
     
   },
   methods: {
+    // 去注册页面
+    toRegister() {
+      this.$router.push({
+        name:"List"
+      })
+    },
     // 点击注册
     onRegister(){
       this.ifShowRegister = true
-      this.ifShowMenu = false
+      // this.ifShowMenu = false
+      this.ifShowFoldableMenu = false
     },
     // 关闭注册页面
     onClose(){
       this.ifShowRegister = false
-      this.ifShowMenu = true
+      // this.ifShowMenu = true
+      this.ifShowFoldableMenu = true
     }
   }
 })
@@ -129,6 +197,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .home_page{
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
   .card-header{
     display: flex;
     justify-content: space-between;
