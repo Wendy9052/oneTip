@@ -86,46 +86,10 @@
         </el-menu>
       </el-col>
     </el-row>
-    <!-- 注册框 -->
-    <el-card class="box-card" v-show="ifShowRegister">
-      <template #header>
-        <div class="card-header">
-          <span>注册</span>
-          <el-button class="button" type="text" @click="onClose()">
-            close
-          </el-button>
-        </div>
-      </template>
-      <div class="register_box">
-        <el-form class="register_form" ref="form" :model="form" label-width="120px">
-          <el-form-item label="*你的名字">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="*手机号">
-            <el-input v-model="form.phone"></el-input>
-          </el-form-item>
-          <el-form-item label="">
-            <el-col :span="10">
-              <el-input v-model="form.valid_code"></el-input>
-            </el-col>
-            <el-col class="line" :span="4">  </el-col>
-            <el-col :span="10" class="valid_box">
-              <valid-code :width="'100'"></valid-code>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="*密码">
-            <el-input v-model="form.password"></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
-      
-    </el-card>
   </div>
 </template>
 
 <script>
-
-import  ValidCode  from "@/components/VerificationCode";
 import { defineComponent, ref } from 'vue'
 import {
   Location,
@@ -135,7 +99,6 @@ import {
 } from '@element-plus/icons'
 export default defineComponent({
   components: {
-    ValidCode,
     Location,
     Document,
     Setting,
@@ -157,10 +120,8 @@ export default defineComponent({
   },
   data(){
     return {
-      // isCollapse: true,
       ifShowFoldableMenu: false, //是否显示可折叠菜单栏
       ifShowMenu: true, //是否显示菜单栏
-      ifShowRegister: false, //是否显示注册框
       input: "",
       form: {   //表单输入项
         name: '',
@@ -181,26 +142,14 @@ export default defineComponent({
     },
     // 点击注册
     onRegister(){
-      this.ifShowRegister = true
-      // this.ifShowMenu = false
       this.ifShowFoldableMenu = false
     },
-    // 关闭注册页面
-    onClose(){
-      this.ifShowRegister = false
-      // this.ifShowMenu = true
-      this.ifShowFoldableMenu = true
-    }
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .home_page{
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-  }
   .card-header{
     display: flex;
     justify-content: space-between;
