@@ -27,25 +27,34 @@
               <valid-code></valid-code>
             </div>
           </el-form-item>
-          <el-form-item label="*密码" prop="password">
+          <el-form-item label="密码" prop="password">
             <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
           </el-form-item>
         </el-form>
          <el-button class="register_btn" type="primary" :disabled="btn_disabled" plain @click="onRegister()">Register</el-button>
       </div>
     </el-card>
+
+    <!-- 提示框 -->
+    <el-alert v-show="ifShowTip" center :title="tipContent" type="warning" @close="closeTip()"></el-alert>
   </div>
 </template>
 
 <script>
 import  ValidCode  from "@/components/VerificationCode";
-
+import { ElMessageBox, ElMessage } from 'element-plus'
+import {
+  mapActions,
+  mapState
+} from 'vuex';
 export default {
   components: {
     ValidCode,
   },
   data () {
     return {
+      tipContent: "", //提示内容
+      ifShowTip: false, //是否显示提示窗
       btn_disabled: false, //注册按钮调接口防并发
       codeList: [],
       ifShowRegister: true, //是否显示注册框
@@ -91,11 +100,28 @@ export default {
 
   },
   methods: {
+    // 关闭提示
+    closeTip() {
+      this.ifShowTip = false
+    },
     // 点击注册
     onRegister() {
       this.btn_disabled = true
-      // 调接口
-      
+      // 判断所填的值为空则提示完善
+      for(let i in this.ruleForm){
+        if(!this.ruleForm[i]){
+          this.tipContent = "请完善信息"
+          this.ifShowTip = true
+          this.btn_disabled = false
+          return
+        } 
+      }
+      // 存值
+      this.$store.commit('setRegisterInfo',this.ruleForm)
+      // 跳转到about页面 查看注册的消息
+      this.$router.push({
+        name:"About"
+      })
     },
     // 打开注册页面
     showTipOne() {

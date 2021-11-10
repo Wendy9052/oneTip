@@ -2,15 +2,12 @@ import { createApp } from 'vue'
 import { createStore } from 'vuex'
 
 // Create a new store instance.
+let register_info = window.localStorage.getItem("register_info")?JSON.parse(localStorage.getItem("register_info")):{}
+console.log("register_info:",register_info)
 const store = createStore({
   state () {
     return {
-      registerInfo:{
-        user_name: "",
-        user_phone: null,
-        valid_code: null,
-        user_password: null,
-      }
+      registerInfo:register_info
     }
   },
   getters: {
@@ -21,6 +18,7 @@ const store = createStore({
   mutations: {
     setRegisterInfo(state, payload) {  //存入注册信息
       state.registerInfo = payload
+      window.localStorage.setItem("register_info",JSON.stringify(payload))
     }
   },
   actions: {
