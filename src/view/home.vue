@@ -130,8 +130,6 @@ export default defineComponent({
         password: '',
       },
     }
-    // validCode:[]
-    
   },
   methods: {
     // 去注册页面
