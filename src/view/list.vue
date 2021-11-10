@@ -1,8 +1,8 @@
 <template>
   <div class="list_page">
     <el-tag @click="showTipOne()">TipOne</el-tag>
-    <el-tag type="success" @click="showTipOne()">TipTwo</el-tag>
-    <el-tag type="warning" @click="showTipOne()">TipThree</el-tag>
+    <el-tag type="success" @click="showTipTwo()">TipTwo</el-tag>
+    <el-tag type="warning" @click="showTipThree()">TipThree</el-tag>
 
     <el-card class="box-card" v-show="ifShowRegister">
       <template #header>
@@ -100,6 +100,22 @@ export default {
 
   },
   methods: {
+    // 打开第三项——未知页面
+    showTipThree() {
+      this.ifShowRegister = false
+    },
+    // 打开第二项——未知页面
+    showTipTwo() {
+      this.ifShowRegister = false
+    },
+    // 打开第一项——注册页面
+    showTipOne() {
+      this.ifShowRegister = true
+    },
+    // 关闭注册页面
+    onClose() {
+      this.ifShowRegister = false
+    },
     // 关闭提示
     closeTip() {
       this.ifShowTip = false
@@ -123,14 +139,6 @@ export default {
         name:"About"
       })
     },
-    // 打开注册页面
-    showTipOne() {
-      this.ifShowRegister = true
-    },
-    // 关闭注册页面
-    onClose() {
-      this.ifShowRegister = false
-    }
   }
 }
 </script>
