@@ -5,14 +5,31 @@ import { createStore } from 'vuex'
 const store = createStore({
   state () {
     return {
-      count: 0
+      registerInfo:{
+        user_name: "",
+        user_phone: null,
+        valid_code: null,
+        user_password: null,
+      }
+    }
+  },
+  getters: {
+    registerInfo(state) { 
+      return state.registerInfo;  //返回注册信息
     }
   },
   mutations: {
-    increment (state) {
-      state.count++
+    setRegisterInfo(state, payload) {  //存入注册信息
+      state.registerInfo = payload
     }
-  }
+  },
+  actions: {
+    SET_REGISTER_INFO(context, payload) {
+      context.commit("setRegisterInfo", payload)
+    }
+  },
+  modules: {},
+
 })
 
 const app = createApp({ /* your root component */ })

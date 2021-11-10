@@ -31,7 +31,7 @@
             <el-input v-model="ruleForm.password" placeholder="请输入密码"></el-input>
           </el-form-item>
         </el-form>
-         <el-button class="register_btn" type="primary" plain @click="onRegister()">Register</el-button>
+         <el-button class="register_btn" type="primary" :disabled="btn_disabled" plain @click="onRegister()">Register</el-button>
       </div>
     </el-card>
   </div>
@@ -39,12 +39,14 @@
 
 <script>
 import  ValidCode  from "@/components/VerificationCode";
+
 export default {
   components: {
     ValidCode,
   },
   data () {
     return {
+      btn_disabled: false, //注册按钮调接口防并发
       codeList: [],
       ifShowRegister: true, //是否显示注册框
       ruleForm: {   //表单输入项
@@ -89,7 +91,12 @@ export default {
 
   },
   methods: {
-    // 
+    // 点击注册
+    onRegister() {
+      this.btn_disabled = true
+      // 调接口
+      
+    },
     // 打开注册页面
     showTipOne() {
       this.ifShowRegister = true
