@@ -42,11 +42,10 @@
 
 <script>
 import  ValidCode  from "@/components/VerificationCode";
-import { ElMessageBox, ElMessage } from 'element-plus'
-import {
-  mapActions,
-  mapState
-} from 'vuex';
+// import {
+//   mapActions,
+//   mapState
+// } from 'vuex';
 export default {
   components: {
     ValidCode,
