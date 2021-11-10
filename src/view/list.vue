@@ -76,6 +76,7 @@
 <script>
 import axios from 'axios'
 import ValidCode from "@/components/VerificationCode";
+import { getList } from "@/api/api"
 // import {
 //   mapActions,
 //   mapState
@@ -140,14 +141,9 @@ export default {
       this.ifShowImg = false
     },
     // 打开第二项——未知页面
-    showTipTwo() {
+    async showTipTwo() {
       this.ifShowRegister = false;
-      axios({
-        url: "/api/getList",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((res) => {
+      await getList().then(res => {
         console.log(res)
         console.log("xxx",res.data.body.listImg);
         this.img_list = [];
@@ -156,9 +152,26 @@ export default {
         }
         console.log("ddd",this.img_list);
         this.ifShowImg = true
-      }).catch((rej) => {
-        console.log(rej);
-      });
+      }).catch(err => {
+        console.log(err);
+      })
+      // axios({
+      //   url: "/api/getList",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // }).then((res) => {
+      //   console.log(res)
+      //   console.log("xxx",res.data.body.listImg);
+      //   this.img_list = [];
+      //   for(let i in res.data.body.listImg) {
+      //     this.img_list.push(res.data.body.listImg[i]);
+      //   }
+      //   console.log("ddd",this.img_list);
+      //   this.ifShowImg = true
+      // }).catch((rej) => {
+      //   console.log(rej);
+      // });
     },
     // 打开第一项——注册页面
     showTipOne() {
