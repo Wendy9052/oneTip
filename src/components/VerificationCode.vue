@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'validCode',
+  name: 'ValidCode',
   props: {
     width: {
       type: String,
