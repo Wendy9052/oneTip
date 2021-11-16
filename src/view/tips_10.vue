@@ -13,6 +13,7 @@
       <el-button plain @click="strAndIntegerConverdsion()">8.字符串和整数转换</el-button>
       <el-button plain @click="checkFackValue()">9.检查数组中的假值</el-button>
       <el-button plain @click="flattenArrays()">10.数组扁平化</el-button>
+      <el-button plain @click="Question_1()">11.if(a==1且a==2且a==3)，有没有可能为true</el-button>
     </div>
   </div>
 </template>
@@ -178,6 +179,23 @@ export default {
       let arr1 = [0, 1, 2, [[[3, 4]]]];
       console.log(arr1.flat(2)); // [0, 1, 2, [3,4]]
       console.log(arr1.flat(3)); // [0, 1, 2, 3, 4]
+    },
+    // if(a==1且a==2且a==3)，有没有可能为true
+    Question_1() {
+      let a = {
+        i: 1,
+        valueOf() {
+          if(this.i === 1){
+            this.i++;
+            return 1;
+          }else{
+            return 12;
+          }
+        }
+      }
+      if( a == 1 && a == 12 ) {
+        console.log("打印出a:",a)
+      }
     }
   }
 }
