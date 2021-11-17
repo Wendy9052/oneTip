@@ -25,7 +25,7 @@ export default {
 
     }
   },
-  mouted() {
+  moutned() {
 
   },
   methods: {

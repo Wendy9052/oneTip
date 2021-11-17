@@ -10,6 +10,8 @@ import Home from '@/view/home'
 import About from '@/view/about'
 import List from '@/view/list'
 import Tips from '@/view/tips_10'
+import Echarts from '@/view/echarts'
+
 
 const routerHistory = createWebHistory();
 const routes = [
@@ -29,9 +31,14 @@ const routes = [
     component: About
   },
   {
-    path: "/",
+    path: "/tips",
     name: "Tips",
     component: Tips
+  },
+  {
+    path: "/",
+    name: "Echarts",
+    component: Echarts
   },
 ]
 const router = createRouter({
